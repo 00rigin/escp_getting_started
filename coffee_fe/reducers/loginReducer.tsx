@@ -22,7 +22,7 @@ const loginReducer = createReducer<LoginState, ReducerActions>(
     initialState,
     {
         [LOGIN_UPDATE]: (state, action) => {
-            if(state.login === false){
+            if(!state.login){
                 return{
                     ...state,
                     login:true,

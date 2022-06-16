@@ -1,28 +1,22 @@
 import Button from "@mui/material/Button";
 import Link from "next/link";
 
-const RouteButton = (routePath:string, routeExplain:string, authority:boolean) => {
+interface Props{
+    routePath:string;
+    routeExplain:string;
+}
 
-    if(authority == true){
-        return(
-            <>
-                <Button variant="contained">
-                    <Link href={routePath}>
-                        <a>{routeExplain}</a>
-                    </Link>
-                </Button>
-            </>
-        );
-    }
-    else{
-        return(
-            <>
-                <Button variant="contained">
-                    <a>{routeExplain}</a>
-                </Button>
-            </>
-        );
-    }
+const RouteButton = (props:Props) => {
+
+    return(
+        <>
+            <Button variant="contained">
+                <Link href={props.routePath}>
+                    <div>{props.routeExplain}</div>
+                </Link>
+            </Button>
+        </>
+    );
 
 };
 

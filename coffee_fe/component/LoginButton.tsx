@@ -17,7 +17,7 @@ const LoginButton = () =>{
     let loginInfo = "";
     // 스테이트 사용할 때는 루트 스테이트에 있는 걸 가져오고, 그 안에서 타고타고 들어가야함.
     const loginState = useSelector((state:RootState) => state.login);
-    if(loginState.login === true){
+    if(loginState.login){
         loginInfo = "LogOut";
     }
     else{
