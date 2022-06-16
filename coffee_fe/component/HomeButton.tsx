@@ -1,21 +1,9 @@
 import Button from "@mui/material/Button";
 import Link from "next/link";
+import RouteButton from "./utils/RouteButton";
 
 const HomeButton = () => {
-
-
-    return(
-        <>
-            <Button variant="contained">
-                <Link href={"/"}>
-                    <a>Come back home</a>
-                </Link>
-            </Button>
-        </>
-
-
-
-    );
+    return(RouteButton("/", "Back to home", true));
 };
 
 export default HomeButton;

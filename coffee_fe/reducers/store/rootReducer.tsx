@@ -1,9 +1,11 @@
 import { combineReducers, Reducer, Action } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 import CoffeeReducer, {CoffeeState} from "../coffeeReducer";
+import LoginReducer, {LoginState} from "../loginReducer";
 
 export interface State {
-    coffee: CoffeeState;
+    coffee: CoffeeState,
+    login: LoginState
 }
 
 const rootReducer: Reducer<any, Action> = (state: State, action: any) => {
@@ -13,7 +15,8 @@ const rootReducer: Reducer<any, Action> = (state: State, action: any) => {
 
         default: {
             const combineReducer = combineReducers({
-                coffee: CoffeeReducer
+                coffee: CoffeeReducer,
+                login: LoginReducer,
             });
 
             return combineReducer(state, action);

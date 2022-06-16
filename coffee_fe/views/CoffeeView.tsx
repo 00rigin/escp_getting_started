@@ -6,14 +6,19 @@ const CoffeeView = () => {
 
     return (
         <>
-            <h3>
-                Midas Cafe
-            </h3>
-            <div>
+            <header>
+                <h3>
+                    Midas Cafe
+                </h3>
                 <LoginButton/>
+            </header>
+            <div>
                 <CoffeeGrid/>
-                <OrderListButton/>
             </div>
+
+            <footer>
+                <OrderListButton/>
+            </footer>
         </>
 
     )

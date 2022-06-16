@@ -1,4 +1,4 @@
-import Table from "./utils/Table"
+import Table from "./Table"
 
 
 const OrderList = () => {
