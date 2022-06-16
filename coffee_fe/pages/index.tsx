@@ -1,8 +1,12 @@
 import CoffeeView from "../views/CoffeeView";
 
+
+
 const Home = () => {
   return (
+
     <CoffeeView/>
+
   )
 }
 
