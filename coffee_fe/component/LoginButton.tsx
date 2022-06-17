@@ -1,9 +1,8 @@
 import Button from "@mui/material/Button";
-import {useDispatch} from "react-redux";
-import {loginDispatch} from "../reducers/loginReducer";
-import {LOGIN_UPDATE} from "../reducers/loginReducer";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {LOGIN_UPDATE, loginDispatch} from "../reducers/loginReducer";
 import {RootState} from "../reducers/store/rootReducer";
+import {LoginInfo} from "../interfaces/enums/enum";
 
 const LoginButton = () =>{
 
@@ -14,14 +13,12 @@ const LoginButton = () =>{
         loginDispatch(dispatch,LOGIN_UPDATE);
     }
 
-    let loginInfo = "";
     // 스테이트 사용할 때는 루트 스테이트에 있는 걸 가져오고, 그 안에서 타고타고 들어가야함.
     const loginState = useSelector((state:RootState) => state.login);
-    loginInfo = loginState.login?"LogOut":"LogIn";
 
     return(
         <>
-            <Button onClick={OnClickLoginButton} variant="contained">{loginInfo}</Button>
+            <Button onClick={OnClickLoginButton} variant="contained">{loginState.login?LoginInfo.Logout:LoginInfo.LogIn}</Button>
         </>
     );
 };
