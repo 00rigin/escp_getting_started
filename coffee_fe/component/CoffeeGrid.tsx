@@ -1,6 +1,7 @@
 import MenuCard from "./MenuCard"
 import {Grid} from "@mui/material";
 import {useEffect, useState, useCallback, memo, useMemo, Key} from "react";
+import {CoffeeRs} from "../interfaces/rs/coffeeRs";
 
 const CoffeeGrid = () => {
 
@@ -11,7 +12,9 @@ const CoffeeGrid = () => {
         axios({
             url: 'http://localhost:8080/menus',
             method: 'get'
-        }).then(function (response: any) {
+        },
+            {withCredentials: true}
+        ).then(function (response: any) {
             // console.log(response.data);
             setCoffeeData(response.data);
         });

@@ -2,6 +2,7 @@
   "name": "coffee_fe",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://apiserver.com:5000",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

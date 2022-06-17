@@ -10,16 +10,23 @@ const MenuCard = (props:CoffeeRs) => {
 
     const loginInfo = useSelector((state:RootState) => state.login);
     const axios = require('axios');
-
     const onClickOrder = () => {
-
+        axios({
+            url: 'http://localhost:8080/orders',
+            method: 'post',
+            data: {
+                menuName: props.menuName,
+            },
+        }, {withCredentials: true}
+        ).then(function (response: any) {
+            console.log(response.data);
+        });
     }
 
     return(
         <>
             <Card>
                 <CardHeader title={props.menuName}/>
-                {/*<CardHeader title="메뉴 이름"/>*/}
                 <CardContent>
                     <div>{props.category}</div>
                     <Image src={require('../public/coffeeImage.png')} width={100} height={100}/>
@@ -27,7 +34,6 @@ const MenuCard = (props:CoffeeRs) => {
                 <CardActions>
                     {loginInfo.login ?
                         <Button onClick={onClickOrder} variant="contained" color="primary">주문하기</Button>
-                        // <Button variant="contained" color="primary">주문하기</Button>
                         : <Button disabled={true} variant="contained" color="primary">주문하기</Button>
                     }
                 </CardActions>
