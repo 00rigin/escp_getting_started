@@ -1,5 +1,4 @@
 import { ActionType, createAction, createReducer } from 'typesafe-actions';
-import {useDispatch} from "react-redux";
 import {Dispatch} from "redux";
 
 export interface LoginState {
@@ -22,17 +21,9 @@ const loginReducer = createReducer<LoginState, ReducerActions>(
     initialState,
     {
         [LOGIN_UPDATE]: (state, action) => {
-            if(state.login === false){
-                return{
-                    ...state,
-                    login:true,
-                };
-            }
-            else{
-                return{
-                    ...state,
-                    login: false,
-                }
+            return{
+                ...state,
+                login: !state.login
             }
         }
 
