@@ -17,9 +17,6 @@ const OrderView = () => {
             <OrderList/>
             <HomeButton/>
             </body>
-
-            <></>
-
         </>
 
     );

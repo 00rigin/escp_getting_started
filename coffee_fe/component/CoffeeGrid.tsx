@@ -2,25 +2,20 @@ import MenuCard from "./MenuCard"
 import {Grid} from "@mui/material";
 import {useEffect, useState, useCallback, memo, useMemo, Key} from "react";
 import {CoffeeRs} from "../interfaces/rs/coffeeRs";
+import {getCoffeeList} from "../api/apiCoffee";
 
 const CoffeeGrid = () => {
 
     const [coffeeData, setCoffeeData] = useState<any>([]);
-    const axios = require('axios');
 
     useMemo(() => {
-        axios({
-            url: 'http://localhost:8080/menus',
-            method: 'get'
-        },
-            {withCredentials: true}
-        ).then(function (response: any) {
-            // console.log(response.data);
-            setCoffeeData(response.data);
-        });
+        getCoffeeList()
+            .then(res => {
+                const coffeeDataArray = res.data;
+                setCoffeeData(coffeeDataArray);
+            });
     }, []);
 
-    console.log(coffeeData);
     return(
         <Grid container spacing={3}>
             {

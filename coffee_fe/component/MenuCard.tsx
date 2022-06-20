@@ -4,23 +4,14 @@ import {useSelector} from "react-redux";
 import {RootState} from "../reducers/store/rootReducer";
 import Image from "next/image";
 import {CoffeeRs} from "../interfaces/rs/coffeeRs";
-
+import {postOrder} from "../api/apiOrder";
 
 const MenuCard = (props:CoffeeRs) => {
 
     const loginInfo = useSelector((state:RootState) => state.login);
-    const axios = require('axios');
+
     const onClickOrder = () => {
-        axios({
-            url: 'http://localhost:8080/orders',
-            method: 'post',
-            data: {
-                menuName: props.menuName,
-            },
-        }, {withCredentials: true}
-        ).then(function (response: any) {
-            console.log(response.data);
-        });
+        postOrder(props);
     }
 
     return(
@@ -32,10 +23,7 @@ const MenuCard = (props:CoffeeRs) => {
                     <Image src={require('../public/coffeeImage.png')} width={100} height={100}/>
                 </CardContent>
                 <CardActions>
-                    {loginInfo.login ?
-                        <Button onClick={onClickOrder} variant="contained" color="primary">주문하기</Button>
-                        : <Button disabled={true} variant="contained" color="primary">주문하기</Button>
-                    }
+                    <Button disabled = {loginInfo.login?false:true} onClick={onClickOrder} variant="contained" color="primary"> 주문하기 </Button>
                 </CardActions>
             </Card>
         </>
