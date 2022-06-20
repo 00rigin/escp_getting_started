@@ -1,4 +1,8 @@
 import axios from "axios";
-export const getCoffeeList = () => {
-    return axios.get('http://localhost:8080/menus');
+import {CoffeeRs} from "../interfaces/rs/coffeeRs";
+
+
+export const getCoffeeList = async ():Promise<CoffeeRs[]> => {
+    const returnData = await axios.get('http://localhost:8080/menus');
+    return returnData.data;
 };

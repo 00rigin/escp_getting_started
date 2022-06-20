@@ -1,5 +1,10 @@
 import Table from "./utils/Table"
 import {DataGrid} from "@mui/x-data-grid";
+import {getOrderList} from "../api/apiOrder";
+import {getCoffeeList} from "../api/apiCoffee";
+import {useEffect, useMemo, useState} from "react";
+import {OrderRs} from "../interfaces/rs/orderRs";
+
 
 const columns = [
     {field: 'id', headerName:"ID", width:150},
@@ -16,7 +21,21 @@ const rows = [
     {id: 3, menu:"석류콤부차", category:"차"},
 ]
 
+
+
 const OrderList = () => {
+
+    const [orderListDataState, setOrderListDataState] = useState<OrderRs[]>([]);
+
+    useMemo(()=>{
+        getOrderList()
+            .then(res => {
+                const orderListData = res.data;
+                setOrderListDataState(orderListData);
+                console.log(orderListData);
+            });
+    },[])
+
 
     return(
         <>

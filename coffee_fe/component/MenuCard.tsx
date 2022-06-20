@@ -11,7 +11,10 @@ const MenuCard = (props:CoffeeRs) => {
     const loginInfo = useSelector((state:RootState) => state.login);
 
     const onClickOrder = () => {
-        postOrder(props);
+        postOrder(props)
+            .catch((error)=>{
+                console.log("ERROR @ order : "+error);
+            });
     }
 
     return(

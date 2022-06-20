@@ -6,20 +6,22 @@ import {getCoffeeList} from "../api/apiCoffee";
 
 const CoffeeGrid = () => {
 
-    const [coffeeData, setCoffeeData] = useState<any>([]);
+    const [coffeeData, setCoffeeData] = useState<CoffeeRs[]>([]);
 
     useMemo(() => {
         getCoffeeList()
             .then(res => {
-                const coffeeDataArray = res.data;
-                setCoffeeData(coffeeDataArray);
+                setCoffeeData(res);
+            })
+            .catch((error)=>{
+                console.log("ERROR @ coffeeGrid: "+ error);
             });
     }, []);
 
     return(
         <Grid container spacing={3}>
             {
-                coffeeData.map((item: { menuId: number; menuName: string; category: string; })=>{
+                coffeeData.map((item:CoffeeRs)=>{
                     return (
                         <Grid key = {item.menuId} item xs={4}>
                             <MenuCard  menuId={item.menuId} menuName={item.menuName} category={item.category}/>
