@@ -14,12 +14,9 @@ const OrderView = () => {
                 <LoginButton/>
             </header>
             <body>
-            <OrderList/>
-            <HomeButton/>
+                <OrderList/>
+                <HomeButton/>
             </body>
-
-            <></>
-
         </>
 
     );
