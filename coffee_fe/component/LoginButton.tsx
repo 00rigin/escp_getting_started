@@ -1,3 +1,4 @@
+import styles from "../styles/LoginButton.module.css";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {LOGIN_UPDATE, loginDispatch} from "../reducers/loginReducer";
@@ -18,7 +19,7 @@ const LoginButton = () =>{
 
     return(
         <>
-            <Button onClick={OnClickLoginButton} variant="contained">{loginState.login?LoginInfo.Logout:LoginInfo.LogIn}</Button>
+            <Button className={styles.loginButton} onClick={OnClickLoginButton} variant="contained">{loginState.login?LoginInfo.Logout:LoginInfo.LogIn}</Button>
         </>
     );
 };
