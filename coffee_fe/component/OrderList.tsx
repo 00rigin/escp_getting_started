@@ -26,14 +26,11 @@ const OrderList = () => {
             })
     },[])
 
-
-
-
-
     return(
         <>
-            <div style={{height: '400px', width: '100%'}}>
-                <DataGrid columns={orderListColumns} rows={rowData}  autoPageSize />
+            <div>
+                <DataGrid columns={orderListColumns} rows={rowData}
+                          autoHeight  />
             </div>
         </>
     );
