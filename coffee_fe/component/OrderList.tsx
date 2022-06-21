@@ -8,14 +8,10 @@ import {orderListColumns, orderListRows} from "../interfaces/constants/Orders";
 
 const OrderList = () => {
 
-
     const [rowData, setRowData] = useState<orderListRows[]>([]);
 
     const getRowData = (orderListData:OrderRs[]) => {
-        // console.log(orderListData);
         const returnData = orderListData.map((item)=> {
-
-            // // console.log(item);
             const coffeeData = {};
             const newData:orderListRows = {id: item.orderID, menuName: item.menuID.menuName, category:item.menuID.category,
                 orderStatus: item.orderStatus, orderDate: item.orderDate};
@@ -23,27 +19,20 @@ const OrderList = () => {
             return newData;
         })
         setRowData(returnData);
-        // console.log(returnData);
-        // return returnData;
     }
 
     useEffect(()=>{
-        console.log("efkjehkfdsa");
         getOrderList()
             .then(res => {
                 getRowData(res);
             })
-
     },[])
-
-
-
-
 
     return(
         <>
-            <div style={{height: '400px', width: '100%'}}>
-                <DataGrid columns={orderListColumns} rows={rowData}  autoPageSize />
+            <div>
+                <DataGrid columns={orderListColumns} rows={rowData}
+                          autoHeight  />
             </div>
         </>
     );

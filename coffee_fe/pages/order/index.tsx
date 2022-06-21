@@ -1,5 +1,5 @@
 import OrderView from "../../views/OrderView";
-import {NextPage} from "next";
+
 
 const OrderPage = () => {
 

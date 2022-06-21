@@ -15,7 +15,10 @@ const OrderView = () => {
             </header>
 
             <OrderList/>
-            <HomeButton/>
+            <footer>
+                <HomeButton/>
+            </footer>
+
 
         </>
 
