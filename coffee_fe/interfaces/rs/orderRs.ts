@@ -4,7 +4,7 @@ export interface OrderRs {
     orderID: number;
     orderDate: string;
     orderStatus: string;
-    menuId: CoffeeRs[];
+    menuID: CoffeeRs;
     orderMenu: string;
 }
 

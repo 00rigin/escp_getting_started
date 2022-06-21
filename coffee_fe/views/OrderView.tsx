@@ -13,10 +13,10 @@ const OrderView = () => {
                 </h3>
                 <LoginButton/>
             </header>
-            <body>
-                <OrderList/>
-                <HomeButton/>
-            </body>
+
+            <OrderList/>
+            <HomeButton/>
+
         </>
 
     );
