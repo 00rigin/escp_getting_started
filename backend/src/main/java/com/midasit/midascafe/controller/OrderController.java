@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderController {
 
     private final OrderRepository orderRepository;
@@ -48,6 +49,12 @@ public class OrderController {
         orderRepository.save(oldOrder);
 
     }
+
+    @GetMapping("/orderList")
+    public List<Order> ShowOrders(){
+        return orderRepository.findAll();
+    }
+
 
     @GetMapping("/orderByMonth")
     public List<Order> ShowOrders(@RequestParam Long month){

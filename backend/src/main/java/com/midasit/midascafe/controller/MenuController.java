@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MenuController {
 
     private final MenuRepository menuRepository;

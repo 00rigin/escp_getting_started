@@ -18,12 +18,13 @@ public class Order {
     @Column(name = "order_id")
     private Long orderID;
 
-
     @OneToOne
     @JoinColumn(name = "menu_id")
     private Menu menuID;
 
-
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User userID;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")

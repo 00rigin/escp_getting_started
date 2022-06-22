@@ -17,6 +17,16 @@ public class User {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Column(name="user_role", nullable = false)
+    private Role userRole;
+
+    @Column(name = "user_email", nullable = false)
+    private String userEmail;
+
+    @Column(name = "user_phonenumber", nullable = false)
+    private String userPhonenumber;
+
+
     public Long getId() {
         return id;
     }
@@ -39,6 +49,31 @@ public class User {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+
+    public Role getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Role userRole) {
+        this.userRole = userRole;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserPhonenumber() {
+        return userPhonenumber;
+    }
+
+    public void setUserPhonenumber(String userPhonenumber) {
+        this.userPhonenumber = userPhonenumber;
     }
 
     ////////////////////////////////////////////////////////

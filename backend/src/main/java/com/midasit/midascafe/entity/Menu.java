@@ -16,13 +16,20 @@ public class Menu {
     @Column(name = "menu_name")
     private String menuName;
 
+    @Column(name = "menu_price")
+    private int menuPrice;
+
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
     private Category category;
 
+    @Column(name = "menu_description")
+    private String menuDescription;
+
     @OneToOne
     @JoinColumn(name = "menu_id")
     private Order order;
+
 
 
 
@@ -48,5 +55,18 @@ public class Menu {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+    public int getMenuPrice() {
+        return menuPrice;
+    }
+    public void setMenuPrice(int menuPrice) {
+        this.menuPrice = menuPrice;
+    }
+    public String getMenuDescription() {
+        return menuDescription;
+    }
+
+    public void setMenuDescription(String menuDescription) {
+        this.menuDescription = menuDescription;
     }
 }
