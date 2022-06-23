@@ -22,7 +22,7 @@ public class H2DataSourceConfig {
     @PostConstruct
     public void start() {
         try {
-            Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "10082").start();
+            Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "8082").start();
         } catch (SQLException e) {
             e.printStackTrace();
         }

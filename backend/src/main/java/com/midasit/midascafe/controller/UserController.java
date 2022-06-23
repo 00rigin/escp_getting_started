@@ -4,6 +4,8 @@ import com.midasit.midascafe.entity.User;
 import com.midasit.midascafe.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -13,10 +15,17 @@ import java.util.List;
 public class UserController {
     private final  UserRepository userRepository;
 
-    @GetMapping("/users/test-set")
-    public void SetUsers() {
-        User testUser = User.register("kim");
-        userRepository.save(testUser);
+
+    @PostMapping("/users/signup")
+    public void SignupUsers(@RequestBody User data){
+
+        User newUser = new User();
+        newUser.setName(data.getName());
+        newUser.setUserEmail(data.getUserEmail());
+        newUser.setUserRole(data.getUserRole());
+        newUser.setUserPhonenumber(data.getUserPhonenumber());
+
+        userRepository.save(newUser);
     }
 
     @GetMapping("/users/test-get")
