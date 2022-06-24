@@ -1,5 +1,5 @@
 package com.midasit.midascafe.entity;
 
-public enum Role {
-    user, admin
+public enum UserRole {
+    admin, user
 }

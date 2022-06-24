@@ -3,11 +3,13 @@ package com.midasit.midascafe.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(
+            name = "name",
             length = 32,
             nullable = false
     )
@@ -17,8 +19,9 @@ public class User {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @Column(name="user_role", nullable = false)
-    private Role userRole;
+    @Column(name="user_role")
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @Column(name = "user_email", nullable = false)
     private String userEmail;
@@ -52,11 +55,11 @@ public class User {
     }
 
 
-    public Role getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(Role userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
 
