@@ -1,56 +1,60 @@
 package com.midasit.midascafe.service;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
+
+import com.midasit.midascafe.dto.MenuDto;
+import com.midasit.midascafe.entity.Category;
 import com.midasit.midascafe.entity.Menu;
 import com.midasit.midascafe.repository.MenuRepository;
-import com.midasit.midascafe.repository.OrderRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MenuService {
 
     private final MenuRepository menuRepository;
-    private final OrderRepository orderRepository;
 
-
-    public List<Menu> showMenuList(){ // 메뉴 전체 보여주기
-        return menuRepository.findAll();
+    public List<MenuDto> getMenus(){
+        List<Menu> menus = menuRepository.findAll();
+        List<MenuDto> returnMenu = new ArrayList<MenuDto>();
+        for(Menu menu : menus){
+            returnMenu.add(MenuDto.DtoMenu(menu));
+        }
+        return returnMenu;
     }
 
-//    public List<Menu> showMenuListByCategory(String category){
-//        return menuRepository.findByCategory(category);
-//    }
+    public List<MenuDto> getMenusByCategory(String category){
+        List<Menu> menus = menuRepository.findByCategory(Category.valueOf(category));
+        List<MenuDto> returnMenu = new ArrayList<MenuDto>();
+        for(Menu menu : menus){
+            returnMenu.add(MenuDto.DtoMenu(menu));
+        }
+        return returnMenu;
+    }
 
-//    public Menu createMenu(MenuCreationRequest request){
-//        Menu menuToCreate = new Menu();
-//        BeanUtils.copyProperties(request, menuToCreate); // 스프링의 객체 프로퍼티 복사
-//        return menuRepository.save(menuToCreate);
-//    }
+    public void postMenu(MenuDto data){
+        Menu menu = new Menu();
+        menu.setMenuName(data.getMenuName());
+        menu.setCategory(data.getCategory());
+        menu.setMenuDescription(data.getMenuDescription());
+        menu.setMenuPrice(data.getMenuPrice());
+        menuRepository.save(menu);
+    }
 
-//    public Menu updateMenu(Long id, MenuUpdateRequest request){
-//        Menu menuToUpdate = menuRepository.findById(id).get();
-////
-//////        Menu menu = menuToUpdate.get();
-////        menu.setMenuName(request.getMenuName());
-////        menu.setCategory(request.getCategory());
-////
-////        return menuRepository.save(menu);
-//    }
-//
-//    public
+    public void updateMenu(MenuDto data){
+        Menu menu = menuRepository.findById(data.getMenuId()).get();
+        menu.setMenuName(data.getMenuName());
+        menu.setCategory(data.getCategory());
+        menu.setMenuPrice(data.getMenuPrice());
+        menu.setMenuDescription(data.getMenuDescription());
+    }
 
-
-
-
-
-
-
-
+    public void deleteMenu(Long id){
+        menuRepository.deleteById(id);
+    }
 
 }

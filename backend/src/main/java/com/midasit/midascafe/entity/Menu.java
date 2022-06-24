@@ -1,7 +1,5 @@
 package com.midasit.midascafe.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 
 @Entity

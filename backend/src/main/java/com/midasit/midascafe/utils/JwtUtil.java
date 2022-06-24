@@ -1,20 +1,20 @@
 package com.midasit.midascafe.utils;
 
-import com.midasit.midascafe.entity.User;
+import com.midasit.midascafe.dto.UserDto;
+
 import com.midasit.midascafe.entity.UserRole;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.slf4j.LoggerFactory;
+import io.jsonwebtoken.*;
+
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+
 
 @Component
 public class JwtUtil {
@@ -24,7 +24,8 @@ public class JwtUtil {
     private String secretKey = "HyunjunyoonJJangJJangMan";
 
 
-    public String CreateJwt(User data){
+
+    public String CreateJwt(UserDto data){
 
         // 토큰 생성
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -40,7 +41,7 @@ public class JwtUtil {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
-        String userName = data.getName();
+        String userName = data.getUserName();
         UserRole role = data.getUserRole();
 
         map.put("userName", userName);
@@ -53,6 +54,27 @@ public class JwtUtil {
 
         String newToken = builder.compact();
         return builder.compact();
+    }
+
+    public Boolean AuthJwt(String token){
+        try {
+            Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+                    .parseClaimsJws(token).getBody();
+
+//            logger.info("Right token");
+//            logger.info("token info ::");
+//            logger.info("expireTime :" + claims.getExpiration());
+//            logger.info("userName :" + claims.get("userName"));
+//            logger.info("userRole :" + claims.get("userRole"));
+
+            return true;
+        } catch (ExpiredJwtException exception) {
+//            logger.info("token expired");
+            return false;
+        } catch (JwtException exception) {
+//            logger.info("wrong token");
+            return false;
+        }
     }
 
 }
