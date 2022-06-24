@@ -57,25 +57,6 @@ public class JwtUtil {
         return builder.compact();
     }
 
-//    public Boolean AuthJwt(String token){
-//        try {
-//            Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
-//                    .parseClaimsJws(token).getBody();
-//
-//            System.out.println("Right token");
-//            System.out.println("expireTime :" + claims.getExpiration());
-//            System.out.println("userName :" + claims.get("userName"));
-//            System.out.println("userRole :" + claims.get("userRole"));
-//
-//            return true;
-//        } catch (ExpiredJwtException exception) {
-//            System.out.println("token expired");
-//            return false;
-//        } catch (JwtException exception) {
-//            System.out.println("wrong token");
-//            return false;
-//        }
-//    }
 public UserRole AuthJwt(String token){
     try {
         Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
@@ -84,10 +65,8 @@ public UserRole AuthJwt(String token){
         System.out.println("Right token");
         System.out.println("expireTime :" + claims.getExpiration());
         System.out.println("userName :" + claims.get("userName"));
-        System.out.println("userRole :" + claims.get("userRole"));
-        UserRole role = (UserRole) claims.get("UserRole");
 
-        return role;
+        return UserRole.valueOf(claims.get("userRole").toString());
     } catch (ExpiredJwtException exception) {
         System.out.println("token expired");
         return null;
