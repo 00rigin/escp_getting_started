@@ -9,9 +9,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
 
-        registry.addInterceptor(new AnanimousInterceptor())
-                .addPathPatterns("/signup", "/menusByCategory", "/menus", "/login");
-
         registry.addInterceptor(new UserInterceptor())
                 .addPathPatterns("/orders", "/orderListByUser");
 
