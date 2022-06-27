@@ -1,10 +1,12 @@
 package com.midasit.midascafe.controller;
 
 import com.midasit.midascafe.dto.OrderDto;
+import com.midasit.midascafe.dto.UserDto;
 import com.midasit.midascafe.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -14,10 +16,9 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    // [POST] 메뉴를 주문할 수 있다.
-    @PostMapping("/orders") // body-json 사용 // get find 차이 알아보고 변환해보기
-    public void OrderMenu(@RequestBody String menuName){
-        orderService.orderMenu(menuName);
+    @PostMapping("/orders")
+    public void OrderMenu(@RequestBody OrderDto data ,HttpServletRequest request){
+        orderService.orderMenu(data, request);
     }
 
     @PutMapping("/updateRequest")
@@ -26,13 +27,28 @@ public class OrderController {
     }
 
     @GetMapping("/orderList")
-    public List<OrderDto> ShowOrders(){
+    public List<OrderDto> ShowOrderList(){
         return orderService.showOrders();
     }
 
     @GetMapping("/orderByMonth")
-    public List<OrderDto> ShowOrders(@RequestParam Long month){
+    public List<OrderDto> ShowOrderListByMonth(@RequestParam Long month){
         return orderService.showOrdersByMonth(month);
     }
+
+    @GetMapping("/orderListByUser")
+    public List<OrderDto> ShowOrderListByUser(HttpServletRequest request){
+        return orderService.showOrdersByUsers(request);
+    }
+    @GetMapping("/orderListByAdmin")
+    public List<OrderDto> ShowOrderListByAdmin(@RequestBody UserDto data){
+        return orderService.showOrdersByAdmin(data);
+    }
+
+    @GetMapping("/orderListOnWait")
+    public List<OrderDto> ShowOrderListOnWait(){
+        return orderService.showOrdersOnWait();
+    }
+
 
 }
