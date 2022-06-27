@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findById(String id);
+    Optional<User> findById(Long id);
 
     @Override
     List<User> findAll();
 
     Optional<User> findByUserEmail(String userEmail);
+
 }

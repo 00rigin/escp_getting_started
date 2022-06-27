@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/users/signup")
-    public void SignupUsers(@RequestBody UserDto data){
+    public void SignupUsers(@RequestBody UserDto data, HttpServletRequest res){
         userService.signupUsers(data);
     }
 

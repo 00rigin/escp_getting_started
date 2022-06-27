@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 
 public class OrderDto {
+    private String userEmail;
     private Long orderId;
     private LocalDateTime OrderDate;
     private Status OrderStatus;
@@ -22,6 +23,6 @@ public class OrderDto {
     private Category MenuCategory;
 
     public static OrderDto DtoOrder(Order order){
-        return new OrderDto(order.getOrderID(), order.getOrderDate(), order.getOrderStatus(), order.getMenuID().getMenuName(), order.getMenuID().getCategory());
+        return new OrderDto(null, order.getOrderID(), order.getOrderDate(), order.getOrderStatus(), order.getMenuID().getMenuName(), order.getMenuID().getCategory());
     }
 }

@@ -64,4 +64,11 @@ public class Order {
     public void setMenuID(Menu menuID) {
         this.menuID = menuID;
     }
+    public User getUserID() {
+        return userID;
+    }
+
+    public void setUserID(User userID) {
+        this.userID = userID;
+    }
 }
