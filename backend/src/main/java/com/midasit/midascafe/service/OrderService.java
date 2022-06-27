@@ -5,6 +5,7 @@ import com.midasit.midascafe.dto.OrderDto;
 import com.midasit.midascafe.dto.UserDto;
 import com.midasit.midascafe.entity.Order;
 import com.midasit.midascafe.entity.Status;
+import com.midasit.midascafe.entity.User;
 import com.midasit.midascafe.repository.MenuRepository;
 import com.midasit.midascafe.repository.OrderRepository;
 import com.midasit.midascafe.repository.UserRepository;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +29,6 @@ public class OrderService {
     private final MenuRepository menuRepository;
     private final UserRepository userRepository;
 
-//    private final AuthTools authTools;
     private final JwtUtil jwtUtil;
 
     public void orderMenu(OrderDto data, HttpServletRequest request){
@@ -57,11 +59,9 @@ public class OrderService {
     public List<OrderDto> showOrders(){
 
         List<Order> orderList = orderRepository.findAll();
-        List<OrderDto> returnOrderList = new ArrayList<OrderDto>();
-        for(Order order : orderList){
-            returnOrderList.add(OrderDto.DtoOrder(order));
-        }
-        return returnOrderList;
+        List userOrderList = orderList.stream().map(order -> OrderDto.DtoOrder(order)).collect(Collectors.toList());
+
+        return userOrderList;
     }
     public List<OrderDto> showOrdersByMonth(@RequestParam Long month){
         return findByMonth(month);
@@ -72,41 +72,29 @@ public class OrderService {
 
         // 쿠키에 있는 유저 이메일로 주문자 판단
         String userEmail = jwtUtil.AuthUserEmail(request);
+        User data = userRepository.findByUserEmail(userEmail).get();
+        List<Order> usersOrders = orderRepository.findByUserID(data);
+        List userOrderList = usersOrders.stream().map(order -> OrderDto.DtoOrder(order)).collect(Collectors.toList());
 
-        List<Order> nowOrders = orderRepository.findAll();
-        List<OrderDto> usersOrders = new ArrayList<OrderDto>();
-        for(Order order : nowOrders){
-            if(order.getUserID().getUserEmail().equals(userEmail))
-                usersOrders.add(OrderDto.DtoOrder(order));
-        }
-        return usersOrders;
+        return userOrderList;
     }
 
     //admin이 특정 사용자의 주문 내역 볼 때 사용
     public List<OrderDto> showOrdersByAdmin(UserDto user){
 
-        List<Order> nowOrders = orderRepository.findAll();
-        List<OrderDto> usersOrders = new ArrayList<OrderDto>();
+        User data = userRepository.findByUserEmail(user.getUserEmail()).get();
+        List<Order> usersOrders = orderRepository.findByUserID(data);
+        List userOrderList = usersOrders.stream().map(order -> OrderDto.DtoOrder(order)).collect(Collectors.toList());
 
-        for(Order order : nowOrders){
-            if(order.getUserID().getUserEmail().equals(user.getUserEmail()))
-                usersOrders.add(OrderDto.DtoOrder(order));
-        }
-
-        return usersOrders;
+        return userOrderList;
     }
 
     public List<OrderDto> showOrdersOnWait(){
 
-        List<Order> nowOrders = orderRepository.findAll();
-        List<OrderDto> usersOrders = new ArrayList<OrderDto>();
+        List<Order> usersOrders = orderRepository.findByOrderStatus(Status.wait);
+        List userOrderList = usersOrders.stream().map(order -> OrderDto.DtoOrder(order)).collect(Collectors.toList());
 
-        for(Order order : nowOrders){
-            if(order.getOrderStatus().equals(Status.wait))
-                usersOrders.add(OrderDto.DtoOrder(order));
-        }
-
-        return usersOrders;
+        return userOrderList;
     }
 
     public List<OrderDto> findByMonth(Long month){

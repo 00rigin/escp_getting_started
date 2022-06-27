@@ -19,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/users/signup")
-    public void SignupUsers(@RequestBody UserDto data, HttpServletRequest res){
+    public void SignupUsers(@RequestBody UserDto data){
         userService.signupUsers(data);
     }
 
