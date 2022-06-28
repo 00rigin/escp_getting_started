@@ -1,6 +1,7 @@
 package com.midasit.midascafe.service;
 
 import com.midasit.midascafe.dto.UserDto;
+import com.midasit.midascafe.entity.User;
 import com.midasit.midascafe.repository.UserRepository;
 import com.midasit.midascafe.utils.CookieUtil;
 import com.midasit.midascafe.utils.JwtUtil;
@@ -15,7 +16,9 @@ public class AuthService {
 
     private final UserRepository userRepository;
 
-    public Cookie createToken(UserDto data){
+    public Cookie createToken(UserDto dtoData){
+        // get DB data
+        User data = userRepository.findByUserEmail(dtoData.getUserEmail()).get();
         //make token
         JwtUtil jwt = new JwtUtil();
         String newToken = jwt.CreateJwt(data);
@@ -25,4 +28,5 @@ public class AuthService {
         // return token
         return token;
     }
+
 }
