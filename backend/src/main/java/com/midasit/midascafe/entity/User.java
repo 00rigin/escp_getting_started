@@ -15,10 +15,6 @@ public class User {
     )
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-
     @Column(name="user_role")
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
@@ -45,15 +41,6 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
 
     public UserRole getUserRole() {
         return userRole;

@@ -8,6 +8,7 @@ import com.midasit.midascafe.repository.MenuRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +54,8 @@ public class MenuService {
         menu.setMenuDescription(data.getMenuDescription());
     }
 
-    public void deleteMenu(Long id){
-        menuRepository.deleteById(id);
+    public void deleteMenu(Long menuId){
+        menuRepository.deleteById(menuId);
     }
 
 }
