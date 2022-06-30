@@ -8,12 +8,17 @@ import {RootState} from "../reducers/store/rootReducer";
 import Image from "next/image";
 import {CoffeeRs} from "../interfaces/rs/coffeeRs";
 import {postOrder} from "../api/apiOrder";
+import {setCookie} from "../utils/cookieUtil";
 
 const MenuCard = (props:CoffeeRs) => {
 
     const loginInfo = useSelector((state:RootState) => state.login);
+    const isToken = useSelector((state:RootState)=>state.token);
 
     const onClickOrder = () => {
+        setCookie('orderToken', isToken.token);
+
+        // setCookie('orderToken', "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyRW1haWwiOiJ5aGowMTIyQG1pZGFzaXQuY29tIiwidXNlck5hbWUiOiLsnKTtmITspIAiLCJ1c2VyUm9sZSI6ImFkbWluIiwiZXhwIjoxNjU2NTU1NDQyfQ.BoFwg9NYRYqHXD9VM8U8ghEcJqapTRp1ocYeeUZ3KSA");
         postOrder(props)
             .catch((error)=>{
                 console.log("ERROR @ order : "+error);
@@ -29,7 +34,8 @@ const MenuCard = (props:CoffeeRs) => {
                     <Image src={require('../public/coffeeImage.png')} width={100} height={100}/>
                 </CardContent>
                 <CardActions className={styles.cardButton}>
-                    <Button disabled = {loginInfo.login?false:true} onClick={onClickOrder} variant="contained" color="primary"> 주문하기 </Button>
+                    <Button disabled = {isToken.token?false:true} onClick={onClickOrder} variant="contained" color="primary"> 주문하기 </Button>
+                    {/*<Button disabled = {loginInfo.login?false:true} onClick={onClickOrder} variant="contained" color="primary"> 주문하기 </Button>*/}
                 </CardActions>
             </Card>
         </>

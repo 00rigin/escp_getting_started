@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {LOGIN_UPDATE, loginDispatch} from "../reducers/loginReducer";
 import {RootState} from "../reducers/store/rootReducer";
 import {LoginInfo} from "../interfaces/enums/enum";
+import RouteButton from "./utils/RouteButton";
 
 const LoginButton = () =>{
 
@@ -19,8 +20,14 @@ const LoginButton = () =>{
 
     return(
         <>
-            <Button className={styles.loginButton} onClick={OnClickLoginButton} variant="contained">{loginState.login?LoginInfo.Logout:LoginInfo.LogIn}</Button>
+            <Button
+                className={styles.loginButton}
+                onClick={OnClickLoginButton}
+                variant="contained">
+                {loginState.login?LoginInfo.Logout:LoginInfo.LogIn}
+            </Button>
         </>
+
     );
 };
 

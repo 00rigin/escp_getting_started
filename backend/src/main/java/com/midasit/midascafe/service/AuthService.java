@@ -1,5 +1,6 @@
 package com.midasit.midascafe.service;
 
+import com.midasit.midascafe.dto.AuthDto;
 import com.midasit.midascafe.dto.UserDto;
 import com.midasit.midascafe.entity.User;
 import com.midasit.midascafe.repository.UserRepository;
@@ -16,17 +17,29 @@ public class AuthService {
 
     private final UserRepository userRepository;
 
-    public Cookie createToken(UserDto dtoData){
+//    public Cookie createToken(UserDto dtoData){
+//        // get DB data
+//        User data = userRepository.findByUserEmail(dtoData.getUserEmail()).get();
+//        //make token
+//        JwtUtil jwt = new JwtUtil();
+//        String newToken = jwt.CreateJwt(data);
+//
+//        // cookie
+//        CookieUtil cookieUtil = new CookieUtil();
+//        javax.servlet.http.Cookie token = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN, newToken);
+//        // return token
+//        return token;
+//    }
+
+    // 22.06.29 FE 연동을 위해 토큰만 전송
+    public String createToken(UserDto dtoData){
         // get DB data
         User data = userRepository.findByUserEmail(dtoData.getUserEmail()).get();
         //make token
         JwtUtil jwt = new JwtUtil();
-        String newToken = jwt.CreateJwt(data);
-        // cookie
-        CookieUtil cookieUtil = new CookieUtil();
-        javax.servlet.http.Cookie token = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN, newToken);
-        // return token
-        return token;
+
+        return jwt.CreateJwt(data);
+
     }
 
 }

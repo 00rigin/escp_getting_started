@@ -1,6 +1,7 @@
-import LoginButton from "../component/LoginButton";
+import LoginPageButton from "../component/LoginPageButton";
 import CoffeeGrid from "../component/CoffeeGrid";
 import OrderListButton from "../component/OrderListButton";
+import LoginButton from "../component/LoginButton";
 
 const CoffeeView = () => {
 
@@ -10,7 +11,8 @@ const CoffeeView = () => {
                 <h3>
                     Midas Cafe
                 </h3>
-                <LoginButton/>
+                {/*<LoginButton/>*/}
+                <LoginPageButton/>
             </header>
             <div>
                 <CoffeeGrid/>

@@ -9,6 +9,7 @@ export const initialState: LoginState = {
     login: false,
 };
 
+
 export const LOGIN_UPDATE = 'loginReducer/LOGIN_UPDATE';
 
 // Action Function Definition
