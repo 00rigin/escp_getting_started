@@ -19,10 +19,11 @@ public class UserInterceptor implements HandlerInterceptor {
 
 //        System.out.println(uri);
 
-        String headerNames = request.getHeader(HttpHeaders.AUTHORIZATION);
-
-
-        System.out.println(headerNames);
+        // for FE sync
+        if(request.getMethod().equals("OPTIONS"))
+            return true;
+        String jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
+        System.out.println(jwt);
 
 //
 //        // No cookie
@@ -32,20 +33,20 @@ public class UserInterceptor implements HandlerInterceptor {
 //        }
 //
 //        String jwt = cookies[0].getValue();
-//
-//        // No token
-//        if(jwt==null){
-//            System.out.println("No token");
-//            return false;
-//        }
-//
-//        JwtUtil jwtUtil = new JwtUtil();
-//        UserRole userRole = jwtUtil.AuthJwt(jwt);
-//
-//
-//        if(userRole.equals(UserRole.user)||userRole.equals(UserRole.admin)) return true;
-//        else return false;
 
-        return false;
+        // No token
+        if(jwt==null){
+            System.out.println("No token");
+            return false;
+        }
+
+        JwtUtil jwtUtil = new JwtUtil();
+        UserRole userRole = jwtUtil.AuthJwt(jwt);
+
+
+        if(userRole.equals(UserRole.user)||userRole.equals(UserRole.admin)) return true;
+        else return false;
+
+//        return false;
     }
 }

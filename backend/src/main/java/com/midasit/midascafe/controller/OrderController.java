@@ -18,6 +18,7 @@ public class OrderController {
 
     @PostMapping("/orders")
     public void OrderMenu(@RequestBody OrderDto data ,HttpServletRequest request){
+        System.out.println(data.getOrderMenu());
         orderService.orderMenu(data, request);
     }
 
@@ -42,6 +43,8 @@ public class OrderController {
     }
     @GetMapping("/orderListByAdmin")
     public List<OrderDto> ShowOrderListByAdmin(@RequestBody UserDto data){
+        System.out.println("sdjfkl;wejklejfl;kejfesea");
+        System.out.println("@ U cnotroll "+data);
         return orderService.showOrdersByAdmin(data);
     }
 
@@ -49,6 +52,5 @@ public class OrderController {
     public List<OrderDto> ShowOrderListOnWait(){
         return orderService.showOrdersOnWait();
     }
-
 
 }

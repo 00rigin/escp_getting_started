@@ -1,7 +1,3 @@
-export interface OrderRq {
-    orderID: number;
-    orderDate: string;
-    orderStatus: string;
-    menuId: number;
-    orderMenu: string;
+export interface OrderListRq {
+    userEmail: string;
 }

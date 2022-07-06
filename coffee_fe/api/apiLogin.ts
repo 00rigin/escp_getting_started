@@ -1,6 +1,5 @@
 import axios from "axios";
 import {LoginRq} from "../interfaces/rq/loginRq";
-import {OrderRs} from "../interfaces/rs/orderRs";
 import {LoginRs} from "../interfaces/rs/loginRs";
 
 

@@ -13,11 +13,13 @@ export const initialState: TokenState = {
 
 
 export const TOKEN_UPDATE = 'tokenReducer/TOKEN_UPDATE';
+export const TOKEN_CLEAR = 'tokenReducer/TOKEN_CLEAR';
 
 // Action Function Definition
 export const updateTokenState = createAction(TOKEN_UPDATE)<TokenState>();
+export const clearTokenState = createAction(TOKEN_CLEAR)<TokenState>();
 
-export const actions = { updateTokenState };
+export const actions = { updateTokenState, clearTokenState };
 type ReducerActions = ActionType<typeof actions>;
 
 const tokenReducer = createReducer<TokenState, ReducerActions>(
@@ -29,6 +31,12 @@ const tokenReducer = createReducer<TokenState, ReducerActions>(
                 token: action.payload.token,
             };
         },
+        [TOKEN_CLEAR]: (state, action)=>{
+            return{
+                ...state,
+                token: '',
+            }
+        }
     },
 );
 
@@ -36,7 +44,10 @@ const tokenReducer = createReducer<TokenState, ReducerActions>(
 export const TokenDispatch = (dispatch: Dispatch, type: string, payload: { token: LoginRs }) => {
     // axios.defaults.headers.common["Authorization"] = 'Bearer &{payload.token}';
     // document.cookie = 'accessToken = ${payload.token}';
+    // console.log(payload.token);
+    // axios.defaults.headers.common["Authorization"] = payload.token.token;
     dispatch({type: type, payload : payload});
 }
+
 
 export default tokenReducer;

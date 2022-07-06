@@ -1,4 +1,5 @@
 import styles from "../styles/MenuCard.module.css";
+import axios from "axios";
 import {memo} from "react";
 import {useSelector} from "react-redux";
 import {Card, CardActions, CardContent, CardHeader} from "@mui/material";
@@ -16,9 +17,10 @@ const MenuCard = (props:CoffeeRs) => {
     const isToken = useSelector((state:RootState)=>state.token);
 
     const onClickOrder = () => {
-        setCookie('orderToken', isToken.token);
+        // setCookie('orderToken', isToken.token);
+        console.log("Chek token : " + isToken.token);
+        axios.defaults.headers.common["Authorization"] = isToken.token;
 
-        // setCookie('orderToken', "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyRW1haWwiOiJ5aGowMTIyQG1pZGFzaXQuY29tIiwidXNlck5hbWUiOiLsnKTtmITspIAiLCJ1c2VyUm9sZSI6ImFkbWluIiwiZXhwIjoxNjU2NTU1NDQyfQ.BoFwg9NYRYqHXD9VM8U8ghEcJqapTRp1ocYeeUZ3KSA");
         postOrder(props)
             .catch((error)=>{
                 console.log("ERROR @ order : "+error);

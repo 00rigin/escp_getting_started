@@ -2,6 +2,7 @@ package com.midasit.midascafe.security;
 
 import com.midasit.midascafe.entity.UserRole;
 import com.midasit.midascafe.utils.JwtUtil;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.Cookie;
@@ -12,18 +13,24 @@ public class AdminInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
 
-        Cookie[] cookies = request.getCookies();
-        String uri = request.getRequestURI().split("\\?")[0];
+//        Cookie[] cookies = request.getCookies();
+//        String uri = request.getRequestURI().split("\\?")[0];
+//
+//        System.out.println(uri);
+//
+//        // No cookie
+//        if(cookies == null){
+//            System.out.println("No cookie");
+//            return false;
+//        }
+//
+//        String jwt = cookies[0].getValue();
 
-        System.out.println(uri);
-
-        // No cookie
-        if(cookies == null){
-            System.out.println("No cookie");
-            return false;
-        }
-
-        String jwt = cookies[0].getValue();
+        // for FE sync
+        if(request.getMethod().equals("OPTIONS"))
+            return true;
+        String jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
+        System.out.println(jwt);
 
         // No token
         if(jwt==null){

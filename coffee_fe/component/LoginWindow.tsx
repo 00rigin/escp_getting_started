@@ -43,6 +43,8 @@ const LoginWindow = () => {
             // axios.defaults.headers.common['Authorization']='Bearer '+res;
             // setLoginInfo(res);
             TokenDispatch(dispatch, TOKEN_UPDATE, {token: res});
+            axios.defaults.headers.common["Authorization"] = res.token;
+
             router.push("/");
         });
     };

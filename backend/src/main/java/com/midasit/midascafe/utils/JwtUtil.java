@@ -8,6 +8,7 @@ import com.midasit.midascafe.security.securityConfig.JwtValidTime;
 import com.midasit.midascafe.security.securityConfig.SecretKey;
 import io.jsonwebtoken.*;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -59,20 +60,23 @@ public class JwtUtil {
     }
 
     public UserRole AuthJwt(String token){
+
         try {
             Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SecretKey.SECRETKEY.getValue()))
                     .parseClaimsJws(token).getBody();
-
             System.out.println("Right token");
             System.out.println("expireTime :" + claims.getExpiration());
             System.out.println("userName :" + claims.get("userName"));
             System.out.println("userEmail : "+claims.get("userEmail"));
+            System.out.println("userRole : "+claims.get("userRole"));
 
             return UserRole.valueOf(claims.get("userRole").toString());
         } catch (ExpiredJwtException exception) {
+            System.out.println("@AUTH jwt // token : "+token);
             System.out.println("token expired");
             return null;
         } catch (JwtException exception) {
+            System.out.println("@AUTH jwt // token : "+token);
             System.out.println("wrong token");
             return null;
         }
@@ -80,7 +84,8 @@ public class JwtUtil {
 
     public String AuthUserEmail(HttpServletRequest request){
 
-        String token = request.getCookies()[0].getValue();
+//        String token = request.getCookies()[0].getValue();
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SecretKey.SECRETKEY.getValue()))
                 .parseClaimsJws(token).getBody();
 

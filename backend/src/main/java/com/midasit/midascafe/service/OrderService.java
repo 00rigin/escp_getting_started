@@ -42,6 +42,8 @@ public class OrderService {
         // 쿠키에 있는 유저 이메일로 주문자 판단
         String userEmail = jwtUtil.AuthUserEmail(request);
 
+
+
         order.setMenuID(menuRepository.findByMenuName(data.getOrderMenu()).get());
         order.setUserID(userRepository.findByUserEmail(userEmail).get());
 

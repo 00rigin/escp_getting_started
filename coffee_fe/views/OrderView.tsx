@@ -1,6 +1,7 @@
 import HomeButton from "../component/HomeButton";
-import LoginButton from "../component/LoginButton";
+
 import OrderList from "../component/OrderList";
+import LogoutButton from "../component/LogoutButton";
 
 const OrderView = () => {
 
@@ -11,7 +12,7 @@ const OrderView = () => {
                 <h3>
                     Midas Cafe
                 </h3>
-                <LoginButton/>
+                <LogoutButton/>
             </header>
 
             <OrderList/>
