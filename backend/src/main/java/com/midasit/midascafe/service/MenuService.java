@@ -54,8 +54,11 @@ public class MenuService {
         menu.setMenuDescription(data.getMenuDescription());
     }
 
-    public void deleteMenu(Long menuId){
-        menuRepository.deleteById(menuId);
+//    public void deleteMenu(Long menuId){
+//        menuRepository.deleteById(menuId);
+//    }
+    public void deleteMenu(String menuName){
+        menuRepository.deleteById(menuRepository.findByMenuName(menuName).get().getMenuId());
     }
 
 }

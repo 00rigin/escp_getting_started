@@ -1,16 +1,13 @@
-import axios from "axios";
+import axios from "axios"
 import {useEffect, useState} from "react";
-import {DataGrid} from "@mui/x-data-grid";
-import {getOrderList, getUserOrderList} from "../api/apiOrder";
-import {OrderRs} from "../interfaces/rs/orderRs";
 import {orderListColumns, orderListRows} from "../interfaces/constants/Orders";
-import {getRole} from "../utils/roleChecker";
-import {AuthRole} from "../interfaces/enums/AuthRole";
+import {OrderRs} from "../interfaces/rs/orderRs";
+import {getWaitOrderList} from "../api/apiOrder";
+import {DataGrid} from "@mui/x-data-grid";
 import {useSelector} from "react-redux";
 import {RootState} from "../reducers/store/rootReducer";
 
-const OrderList = () => {
-
+const WaitingOrderList = () => {
     const [rowData, setRowData] = useState<orderListRows[]>([]);
     const isToken = useSelector((state:RootState)=>state.token);
 
@@ -25,17 +22,10 @@ const OrderList = () => {
 
     useEffect(()=>{
         axios.defaults.headers.common["Authorization"] = isToken.token;
-        getRole(isToken.token)===AuthRole.admin?
-            getOrderList()
-                .then(res => {
-                    getRowData(res);
-                })
-            : getUserOrderList()
-                .then(res => {
-                    getRowData(res);
-                });
+        getWaitOrderList().then(res=>{
+            getRowData(res);
+        });
     },[])
-
     return(
         <>
             <div>
@@ -46,4 +36,4 @@ const OrderList = () => {
     );
 };
 
-export default OrderList;
+export default WaitingOrderList;

@@ -9,22 +9,29 @@ import {RootState} from "../reducers/store/rootReducer";
 import Image from "next/image";
 import {CoffeeRs} from "../interfaces/rs/coffeeRs";
 import {postOrder} from "../api/apiOrder";
-import {setCookie} from "../utils/cookieUtil";
+import {getRole} from "../utils/roleChecker";
+import {AuthRole} from "../interfaces/enums/AuthRole";
+import {sendDeleteMenu} from "../api/apiCRUD";
+import {router} from "next/client";
+import RouteButton from "./utils/RouteButton";
+import {SettingRoutButton} from "./SettingRoutButton";
 
 const MenuCard = (props:CoffeeRs) => {
 
-    const loginInfo = useSelector((state:RootState) => state.login);
     const isToken = useSelector((state:RootState)=>state.token);
+    const userRole = isToken.token?getRole(isToken.token):null;
 
     const onClickOrder = () => {
-        // setCookie('orderToken', isToken.token);
-        console.log("Chek token : " + isToken.token);
         axios.defaults.headers.common["Authorization"] = isToken.token;
-
         postOrder(props)
             .catch((error)=>{
                 console.log("ERROR @ order : "+error);
             });
+    }
+
+    const onClickDelete = () => {
+        axios.defaults.headers.common["Authorization"] = isToken.token;
+        sendDeleteMenu(props.menuName).then();
     }
 
     return(
@@ -33,11 +40,19 @@ const MenuCard = (props:CoffeeRs) => {
                 <CardHeader title={props.menuName}/>
                 <CardContent>
                     <div>{props.category}</div>
+                    <div>{props.menuDescription}</div>
                     <Image src={require('../public/coffeeImage.png')} width={100} height={100}/>
+                    <h3>{props.menuPrice}₩</h3>
                 </CardContent>
                 <CardActions className={styles.cardButton}>
-                    <Button disabled = {isToken.token?false:true} onClick={onClickOrder} variant="contained" color="primary"> 주문하기 </Button>
-                    {/*<Button disabled = {loginInfo.login?false:true} onClick={onClickOrder} variant="contained" color="primary"> 주문하기 </Button>*/}
+                    <Button disabled = {!isToken.token} onClick={onClickOrder} variant="contained" color="primary"> 주문하기 </Button>
+                    {userRole===AuthRole.admin&&
+                        <>
+                            <SettingRoutButton/>
+                            <Button onClick={onClickDelete} variant="contained" color="primary"> 삭제 </Button>
+                        </>
+                    }
+
                 </CardActions>
             </Card>
         </>

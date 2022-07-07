@@ -3,7 +3,7 @@ import RouteButton from "./utils/RouteButton";
 const OrderWithWaitButton = () => {
 
     return(
-        <RouteButton routePath="/WaitOrderList" routeExplain="wait order list"/>
+        <RouteButton routePath="/waitingOrderList" routeExplain="wait order list"/>
     )
 };
 

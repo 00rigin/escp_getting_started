@@ -39,9 +39,13 @@ public class MenuController {
     }
 
     // [DELETE] 메뉴를 삭제할 수 있다.
+//    @DeleteMapping("/deleteMenu")
+//    public void DeleteMenu(@RequestParam Long menuId){
+//        menuService.deleteMenu(menuId);
+//    }
     @DeleteMapping("/deleteMenu")
-    public void DeleteMenu(@RequestParam Long menuId){
-        menuService.deleteMenu(menuId);
+    public void DeleteMenu(@RequestParam String menuName){
+        menuService.deleteMenu(menuName);
     }
 
 }
