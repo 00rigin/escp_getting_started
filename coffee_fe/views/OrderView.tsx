@@ -12,9 +12,7 @@ const OrderView = () => {
                 <h3>
                     Midas Cafe
                 </h3>
-                <LogoutButton/>
             </header>
-
             <OrderList/>
             <footer>
                 <HomeButton/>

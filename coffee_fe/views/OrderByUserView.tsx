@@ -46,7 +46,6 @@ const OrderByUserView = () => {
                 <h3>
                     Midas Cafe
                 </h3>
-                <LogoutButton/>
             </header>
             <div>
                 <div>사용자의 주문 내역 검색</div>

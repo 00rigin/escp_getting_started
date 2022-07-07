@@ -1,6 +1,4 @@
 import HomeButton from "../component/HomeButton";
-import LoginButton from "../component/LoginButton";
-import LoginPageButton from "../component/LoginPageButton";
 import LoginWindow from "../component/LoginWindow";
 
 

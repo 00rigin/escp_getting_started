@@ -13,7 +13,7 @@ const LogoutButton = () => {
         axios.defaults.headers.common["Authorization"] = '';
     }
     return(
-        <Button
+        <Button className={styles.routeButton}
         onClick={onClickLogoutButton}
         variant="contained">로그아웃</Button>
     );
