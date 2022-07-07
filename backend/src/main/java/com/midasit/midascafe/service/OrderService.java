@@ -82,9 +82,17 @@ public class OrderService {
     }
 
     //admin이 특정 사용자의 주문 내역 볼 때 사용
-    public List<OrderDto> showOrdersByAdmin(UserDto user){
+//    public List<OrderDto> showOrdersByAdmin(UserDto user){
+//
+//        User data = userRepository.findByUserEmail(user.getUserEmail()).get();
+//        List<Order> usersOrders = orderRepository.findByUserID(data);
+//        List userOrderList = usersOrders.stream().map(order -> OrderDto.DtoOrder(order)).collect(Collectors.toList());
+//
+//        return userOrderList;
+//    }
+    public List<OrderDto> showOrdersByAdmin(String userEmail){
 
-        User data = userRepository.findByUserEmail(user.getUserEmail()).get();
+        User data = userRepository.findByUserEmail(userEmail).get();
         List<Order> usersOrders = orderRepository.findByUserID(data);
         List userOrderList = usersOrders.stream().map(order -> OrderDto.DtoOrder(order)).collect(Collectors.toList());
 

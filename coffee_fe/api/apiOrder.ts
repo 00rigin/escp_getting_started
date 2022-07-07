@@ -32,11 +32,11 @@ export const getWaitOrderList = async ():Promise<OrderRs[]> => {
 };
 
 export const getOrderListByUser =  async (props: OrderListRq): Promise<OrderRs[]> => {
-    console.log(props.userEmail);
     const inputData = {userEmail: props.userEmail};
-    console.log(inputData);
+    // const returnData = await axios.get('http://localhost:8080/orderListByAdmin',
+    //     {inputData}
+    // );
     const returnData = await axios.get('http://localhost:8080/orderListByAdmin',
-        {data:inputData}
-    );
+        {params: {userEmail: props.userEmail}});
     return returnData.data;
 };

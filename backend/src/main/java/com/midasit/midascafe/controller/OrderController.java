@@ -41,12 +41,20 @@ public class OrderController {
     public List<OrderDto> ShowOrderListByUser(HttpServletRequest request){
         return orderService.showOrdersByUsers(request);
     }
+
     @GetMapping("/orderListByAdmin")
-    public List<OrderDto> ShowOrderListByAdmin(@RequestBody UserDto data){
+    public List<OrderDto> ShowOrderListByAdmin(@RequestParam String userEmail){
         System.out.println("sdjfkl;wejklejfl;kejfesea");
-        System.out.println("@ U cnotroll "+data);
-        return orderService.showOrdersByAdmin(data);
+        System.out.println("@ U cnotroll "+userEmail);
+
+        return orderService.showOrdersByAdmin(userEmail);
     }
+//    @GetMapping("/orderListByAdmin")
+//    public List<OrderDto> ShowOrderListByAdmin(@RequestParam UserDto data){
+//        System.out.println("sdjfkl;wejklejfl;kejfesea");
+//        System.out.println("@ U cnotroll "+data);
+//        return orderService.showOrdersByAdmin(data);
+//    }
 
     @GetMapping("/orderListOnWait")
     public List<OrderDto> ShowOrderListOnWait(){
